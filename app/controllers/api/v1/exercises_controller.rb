@@ -1,9 +1,11 @@
-class ExercisesController < ApplicationController
+class Api::V1::ExercisesController < ApplicationController
   before_action :set_exercise, only: %i[ show edit update destroy ]
 
   # GET /exercises or /exercises.json
   def index
     @exercises = Exercise.all
+
+    render json: @exercises
   end
 
   # GET /exercises/1 or /exercises/1.json
