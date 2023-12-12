@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
+import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
+
+import ExerciseCard from './ExerciseCard'
 
 function ProgramBuilder() {
 
@@ -59,14 +62,16 @@ const Exercises = [
 		<>
 			<Box>
 		      <Paper />
-		    </Box>
+		    
 			<h1>Program Builder</h1>
 			<input 
 				onChange={ (e) => setQuery(e.target.value)}
 			/>
+			<Divider />
 			{search(Exercises).map((exercise) => (
-				<p key={exercise.id}>{exercise.name}</p>
+				<ExerciseCard key={exercise.id} props={exercise}/>
 			))}
+			</Box>
 		</>
 	)
 }
