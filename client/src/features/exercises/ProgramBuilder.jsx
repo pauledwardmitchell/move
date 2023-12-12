@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
 
@@ -59,19 +61,24 @@ const Exercises = [
 
 	console.log(query)
 	return(
-		<>
-			<Box>
-		      <Paper />
-		    
+		<>		    
 			<h1>Program Builder</h1>
 			<input 
 				onChange={ (e) => setQuery(e.target.value)}
 			/>
 			<Divider />
-			{search(Exercises).map((exercise) => (
-				<ExerciseCard key={exercise.id} props={exercise}/>
-			))}
-			</Box>
+			<Container>
+				<Grid container spacing={0}>
+					<Grid item xs={9}>
+						{search(Exercises).map((exercise) => (
+							<ExerciseCard key={exercise.id} props={exercise}/>
+						))}
+					</Grid>
+					<Grid item xs={3}>
+					build program spot
+					</Grid>
+				</Grid>
+			</Container>
 		</>
 	)
 }
