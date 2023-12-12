@@ -1,4 +1,7 @@
-import { useState, onChange, input } from 'react'
+import { useState } from 'react'
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import Paper from '@mui/material/Paper'
 
 function ProgramBuilder() {
 
@@ -46,14 +49,22 @@ const Exercises = [
 ]
 
 	const [query, setQuery] = useState("")
+
+	const search = (Exercises) => {
+		return Exercises.filter((item) => item.name.toLowerCase().includes(query))
+	}
+
 	console.log(query)
 	return(
 		<>
+			<Box>
+		      <Paper />
+		    </Box>
 			<h1>Program Builder</h1>
 			<input 
 				onChange={ (e) => setQuery(e.target.value)}
 			/>
-			{Exercises.map((exercise) => (
+			{search(Exercises).map((exercise) => (
 				<p key={exercise.id}>{exercise.name}</p>
 			))}
 		</>
