@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 
 export default function ExerciseCard({props}) {
   return (
+  	
     <Card sx={{ 
-    		maxWidth: 180, 
+    		width: 140, 
+        padding: 3,
     		display: 'inline-block'
 		 	}}>
       <CardMedia
