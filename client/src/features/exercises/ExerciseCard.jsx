@@ -8,7 +8,12 @@ import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function ExerciseCard({props}) {
+export default function ExerciseCard({data}) {
+
+  function sayHello() {
+    console.log("hiya!")
+  }
+
   return (
     <Card sx={{ width: 240,
                 height: 180,
@@ -24,7 +29,7 @@ export default function ExerciseCard({props}) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props.name}
+            {data.name}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -33,7 +38,7 @@ export default function ExerciseCard({props}) {
           size="small" 
           color="secondary" 
           aria-label="add"
-          sx={{position: 'relative',
+          sx={{position : 'relative',
           bottom: 100,
           right: -180}}
           >
