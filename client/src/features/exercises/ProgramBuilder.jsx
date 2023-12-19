@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -19,6 +19,8 @@ import AddIcon from '@mui/icons-material/Add';
 
 import ExerciseCard from './ExerciseCard'
 import ExerciseList from './ExerciseList'
+
+import { API_URL } from "../../constants" 
 
 function ProgramBuilder() {
 
@@ -65,14 +67,40 @@ const Exercises = [
 	},
 ]
 
+	//load from api
+	const [exercises, loadExercises] = useState([])
+	const [, setLoading] = useState(true)
+	const [, setError] = useState(null)
+
+	useEffect(() => {
+		async function loadExercises() {
+			try {
+		debugger
+				const response = await fetch(API_URL)
+				if (response.ok) {
+					const json = await response.json()
+					loadExercises(json)
+				debugger
+				} else {
+					throw response
+				}
+			} catch (e) {
+				setError("An error occured...")
+				console.log("an error occured", e)
+			} finally {
+				setLoading(false)
+			}
+		}
+	}, [])
+
 	const [query, setQuery] = useState("")
 
 	const [programName, setProgramName] = useState("")
 
 	const [selectedExercises, setExercises] = useState([])
 
-	const search = (Exercises) => {
-		return Exercises.filter((item) => item.name.toLowerCase().includes(query))
+	const search = (exercises) => {
+		return exercises.filter((item) => item.name.toLowerCase().includes(query))
 	}
 
 	return(
@@ -97,7 +125,7 @@ const Exercises = [
     						</Button>
     					</Grid>
     					</Stack>
-						{search(Exercises).map((exercise) => (
+						{search(exercises).map((exercise) => (
 							<Card key={exercise.id} 
 								  sx={{ width: 240,
 						                height: 180,
