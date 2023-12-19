@@ -67,6 +67,8 @@ const Exercises = [
 
 	const [query, setQuery] = useState("")
 
+	const [programName, setProgramName] = useState("")
+
 	const [selectedExercises, setExercises] = useState([])
 
 	const search = (Exercises) => {
@@ -75,10 +77,9 @@ const Exercises = [
 
 	return(
 		<>		    
-			<h1>Program Builder</h1>
-			<Divider />
+			<Divider/>
 			<Container>
-				<Grid container spacing={0}>
+				<Grid container spacing={0} marginY={8}>
 					<Grid item xs={9}>
 						<Stack direction="row">
 						<Grid item xs={9}>
@@ -137,12 +138,33 @@ const Exercises = [
 						))}
 					</Grid>
 					<Grid item xs={3}>
-						<TextField fullWidth label="Program Name" id="programName">
+						<Box
+							sx={{
+								display:'flex',
+								flexWrap:'wrap',								
+							}}>
+						<TextField 
+							fullWidth 
+							label="Program Name" 
+							id="programName"
+							size="small"	
+							onChange={ (e) => setProgramName(e.target.value)}
+							>
     					</TextField>
+    					<Paper
+    						elevation={5} 
+    						sx={{
+    						height: 300,
+    						width: 300	
+    					}} >
     					<ul>
     						{selectedExercises.map(exercise => (
     							<li key={exercise.id}>{exercise.name}</li>))}
     					</ul>
+    					<Button variant="outlined">Create Workout
+    					</Button>
+    					</Paper>
+    					</Box>
 					</Grid>
 				</Grid>
 			</Container>
