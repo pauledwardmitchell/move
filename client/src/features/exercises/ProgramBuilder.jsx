@@ -75,10 +75,9 @@ const Exercises = [
 
 	return(
 		<>		    
-			<h1>Program Builder</h1>
-			<Divider />
+			<Divider/>
 			<Container>
-				<Grid container spacing={0}>
+				<Grid container spacing={0} marginY={8}>
 					<Grid item xs={9}>
 						<Stack direction="row">
 						<Grid item xs={9}>
