@@ -20,78 +20,30 @@ import AddIcon from '@mui/icons-material/Add';
 import ExerciseCard from './ExerciseCard'
 import ExerciseList from './ExerciseList'
 
+import axios from 'axios'
+
 import { API_URL } from "../../constants" 
 
 function ProgramBuilder() {
 
-const Exercises = [
-	{
-		"id": 1,
-		"name": "Hip Flexion",
-		"description": "Do this not that",
-	},
-	{
-		"id": 2,
-		"name": "Hip Extension",
-		"description": "Do this not that",
-	},
-	{
-		"id": 3,
-		"name": "Arm Flexion",
-		"description": "Do this not that",
-	},
-	{
-		"id": 4,
-		"name": "Arm Extension",
-		"description": "Do this not that",
-	},
-	{
-		"id": 5,
-		"name": "Knee Flexion",
-		"description": "Do this not that",
-	},
-	{
-		"id": 6,
-		"name": "Knee Extension",
-		"description": "Do this not that",
-	},
-	{
-		"id": 7,
-		"name": "Shoulder Flexion",
-		"description": "Do this not that",
-	},
-	{
-		"id": 8,
-		"name": "Shoulder Extension",
-		"description": "Do this not that",
-	},
-]
-
 	//load from api
-	const [exercises, loadExercises] = useState([])
+	const [exercises, loadExercises] = useState([{
+		"id": 1,
+		"title": "Hip Flexion",
+		"description": "Do this not that",
+	}])
 	const [, setLoading] = useState(true)
 	const [, setError] = useState(null)
 
-	useEffect(() => {
-		async function loadExercises() {
-			try {
-		debugger
-				const response = await fetch(API_URL)
-				if (response.ok) {
-					const json = await response.json()
-					loadExercises(json)
-				debugger
-				} else {
-					throw response
-				}
-			} catch (e) {
-				setError("An error occured...")
-				console.log("an error occured", e)
-			} finally {
-				setLoading(false)
-			}
-		}
-	}, [])
+	  useEffect(() => {
+	    axios.get('http://localhost:3000/api/v1/exercises')
+	      .then(response => {
+	        loadExercises(response.data);
+	      })
+	      .catch(error => {
+	        console.error(error);
+	      });
+	  }, []);
 
 	const [query, setQuery] = useState("")
 
@@ -100,7 +52,7 @@ const Exercises = [
 	const [selectedExercises, setExercises] = useState([])
 
 	const search = (exercises) => {
-		return exercises.filter((item) => item.name.toLowerCase().includes(query))
+		return exercises.filter((item) => item.title.toLowerCase().includes(query))
 	}
 
 	return(
@@ -141,7 +93,7 @@ const Exercises = [
 						        />
 						        <CardContent>
 						          <Typography gutterBottom variant="h5" component="div">
-						            {exercise.name}
+						            {exercise.title}
 						          </Typography>
 						        </CardContent>
 						      </CardActionArea>
@@ -158,7 +110,7 @@ const Exercises = [
 						          	onClick={() => {
 						          		setExercises([
 						          			...selectedExercises,
-						          			{id: exercise.id, name: exercise.name}])
+						          			{id: exercise.id, title: exercise.title}])
 						          	}} />
 						        </Fab>
 						      </CardActions>
@@ -187,7 +139,7 @@ const Exercises = [
     					}} >
     					<ul>
     						{selectedExercises.map(exercise => (
-    							<li key={exercise.id}>{exercise.name}</li>))}
+    							<li key={exercise.id}>{exercise.title}</li>))}
     					</ul>
     					<Button variant="outlined">Create Workout
     					</Button>
